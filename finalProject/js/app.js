@@ -1,5 +1,7 @@
 // Enemies our player must avoid
 var Enemy = function(x, y) {
+    this.x = x;
+    this.y = y;
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -30,7 +32,9 @@ Enemy.prototype.render = function(){
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Player = function() {
+var Player = function(x, y) {
+    this.x = x;
+    this.y = y;
     this.sprite = 'images/char-boy.png';
 };
 
@@ -54,16 +58,20 @@ var allEnemies = [];
 
 //create enemies from a 0 index and add them to the allEnemies array.
 for(var i = 0; i < 3; i++) {
+    var newy = (i* 100) + 100
 
-    allEnemies['enemy' + i] =  new Enemy();
+    allEnemies['enemy' + i] =  new Enemy(390, newy);
 };
 
 for (var i = 0; i < allEnemies.length; i++) {
-    allEnemies[i].render();
+    console.log(allEnemies[i].x, allEnemies[i].y)
 };
 
 
-var player = new Player();
+var player = new Player(589,479);
+console.log(player.sprite);
+console.log(player.x, player.y);
+console.log(player);
 
 
 
@@ -83,5 +91,5 @@ document.addEventListener('keyup', function(e) {
 
 $(document).click(function(loc) {
   // your code goes here
-  logClicks(loc.pageX, loc.pageY);
+  console.log(loc.pageX, loc.pageY);
 });
