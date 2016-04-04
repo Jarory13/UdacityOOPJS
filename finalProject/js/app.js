@@ -65,16 +65,7 @@ for (var i = 0; i < allEnemies.length; i++) {
 
 var player = new Player();
 
-console.log(allEnemies, player);
 
-function getClickPosition(e) {
-    var xPosition = e.clientX;
-    var yPosition = e.clientY;
-}
-
-var mouseClick = getClickPosition
-
-console.log(mouseClick);
 
 
 // This listens for key presses and sends the keys to your
@@ -88,4 +79,9 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+$(document).click(function(loc) {
+  // your code goes here
+  logClicks(loc.pageX, loc.pageY);
 });
