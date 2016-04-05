@@ -1,12 +1,13 @@
 // Enemies our player must avoid
 var Enemy = function(x, y) {
-    this.x = x;
-    this.y = y;
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+
+    this.x = x;
+    this.y = y;
  
     this.sprite = 'images/enemy-bug.png';
 
@@ -22,7 +23,6 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-
 Enemy.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -57,21 +57,29 @@ Player.prototype.handleInput = function () {
 var allEnemies = [];
 
 //create enemies from a 0 index and add them to the allEnemies array.
-for(var i = 0; i < 3; i++) {
-    var newy = (i* 100) + 100
 
-    allEnemies['enemy' + i] =  new Enemy(390, newy);
-};
-
-for (var i = 0; i < allEnemies.length; i++) {
-    console.log(allEnemies[i].x, allEnemies[i].y)
-};
+// for(var i = 0; i < 3; i++) {
+//     var newY = (i* 100) + 60
+//     eval("var enemy" + i + "=new Enemy(0, newY);");
 
 
-var player = new Player(589,479);
-console.log(player.sprite);
-console.log(player.x, player.y);
-console.log(player);
+// };
+
+
+/* This is not a perfect solution I would rather use something
+dynamic like the lines of code commented out above but I can't seem to 
+figure out how to push dynamically generated named? 
+*/
+var enemy0 = new Enemy(0, 60);
+var enemy1 = new Enemy(0, 150);
+var enemy2 = new Enemy(0, 230);
+
+allEnemies.push(enemy0, enemy1, enemy2);
+
+//console.log(allEnemies);
+
+
+var player = new Player(200,418);
 
 
 
