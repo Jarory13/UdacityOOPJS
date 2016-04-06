@@ -1,12 +1,16 @@
 // Enemies our player must avoid
+const Yshift = 88;
+const Xshift = 101;
+var enemySpeed = 100
+
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    var defaultx = x;
-    var defaulty = y;
+    var defaultX = x;
+    var defaultY = y;
 
     this.x = x;
     this.y = y;
@@ -24,20 +28,20 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 
 //set all enemies to move
-this.x = this.x + (125 * dt);
+this.x = this.x + (enemySpeed * dt);
 
 //set back to start once they are off screen
 if (this.x >= 495) {
-    this.x = 0;
+    this.x = -50;
 };
 
 
-    //handle colliaions
-    if(this.x === player.x){
-    this.x = defaultx;
-    player.x = 200;
-    player.y = 418;
-}
+    // //handle colliaions
+    // if(this.x === player.x){
+    // this.x = this.defaultx;
+    // player.x = 200;
+    // player.y = 418;
+    // }
 
 };
 
@@ -45,6 +49,10 @@ if (this.x >= 495) {
 Enemy.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+
+
+
 
 
 // Now write your own player class
@@ -55,9 +63,24 @@ var Player = function(x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-boy.png';
+     this.defaultX = x;
+     this.defaultY = y;
 };
 
+//handle the player moving off screen
 Player.prototype.update = function(dt) {
+    if(this.y <= 0) {
+       endReached();
+    }
+    else if(this.y > 411) {
+        this.y = this.defaultY;
+    }
+    else if (this.x <= 0){
+        this.x = 0;
+    }
+    else if (this.x >= 400) {
+        this.x = 400;
+    }
 
 
 };
@@ -69,15 +92,15 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (allowedKey) {
 
     if(allowedKey == "left"){
-        this.x = this.x - 101;
+        this.x = this.x - Xshift;
     }
     else if(allowedKey == "right"){
-        this.x = this.x + 101;
+        this.x = this.x + Xshift;
     }
     else if(allowedKey == "up"){
-        this.y -= 85;
+        this.y -= Yshift;
     }else if(allowedKey == "down"){
-        this.y += 85;
+        this.y += Yshift;
     }
 
 }
@@ -112,7 +135,7 @@ allEnemies.push(enemy0, enemy1, enemy2, enemy3);
 //console.log(allEnemies);
 
 
-var player = new Player(200,310);
+var player = new Player(200,411);
 
 
 
@@ -128,6 +151,30 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+
+var endReached = function () {
+    player.x = player.defaultX;
+    player.y = player.defaultY;
+    enemySpeed += 20;
+
+    /*This is is super inefficent, but functional for now. 
+    I need to figure out how to make them reset in a loop somehow
+    but I still can't figure out how to access functions for each
+    element in the array by iterating over the array. 
+    */
+    enemy0.x = 0;
+    enemy0.y = 60;
+    enemy1.x = 350;
+    enemy1.y = 145;
+    enemy2.x = 100;
+    enemy2.y = 230;
+    enemy3.x = 250;
+    enemy3.y = 50;
+    
+}
+
 
 $(document).click(function(loc) {
   // your code goes here
