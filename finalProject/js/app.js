@@ -111,13 +111,13 @@ Player.prototype.handleInput = function (allowedKey) {
 // Place the player object in a variable called player
 var allEnemies = [];
 
-//create enemies from a 0 index and add them to the allEnemies array.
 
+/*This is an loop solution I tried but couldnt get to work. 
+*/
+//create enemies from a 0 index and add them to the allEnemies array.
 // for(var i = 0; i < 3; i++) {
 //     var newY = (i* 100) + 60
 //     eval("var enemy" + i + "=new Enemy(0, newY);");
-
-
 // };
 
 
