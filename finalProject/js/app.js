@@ -5,6 +5,8 @@ var Enemy = function(x, y) {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+    var defaultx = x;
+    var defaulty = y;
 
     this.x = x;
     this.y = y;
@@ -20,6 +22,23 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+//set all enemies to move
+this.x = this.x + (125 * dt);
+
+//set back to start once they are off screen
+if (this.x >= 495) {
+    this.x = 0;
+};
+
+
+    //handle colliaions
+    if(this.x === player.x){
+    this.x = defaultx;
+    player.x = 200;
+    player.y = 418;
+}
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -40,13 +59,26 @@ var Player = function(x, y) {
 
 Player.prototype.update = function(dt) {
 
+
 };
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function () {
+Player.prototype.handleInput = function (allowedKey) {
+
+    if(allowedKey == "left"){
+        this.x = this.x - 101;
+    }
+    else if(allowedKey == "right"){
+        this.x = this.x + 101;
+    }
+    else if(allowedKey == "up"){
+        this.y -= 85;
+    }else if(allowedKey == "down"){
+        this.y += 85;
+    }
 
 }
 
@@ -71,16 +103,16 @@ dynamic like the lines of code commented out above but I can't seem to
 figure out how to push dynamically generated named? 
 */
 var enemy0 = new Enemy(0, 60);
-var enemy1 = new Enemy(0, 150);
-var enemy2 = new Enemy(0, 230);
+var enemy1 = new Enemy(350, 145);
+var enemy2 = new Enemy(100, 230);
+var enemy3 = new Enemy(250, 60);
 
-allEnemies.push(enemy0, enemy1, enemy2);
+allEnemies.push(enemy0, enemy1, enemy2, enemy3);
 
 //console.log(allEnemies);
 
 
-var player = new Player(200,418);
-
+var player = new Player(200,310);
 
 
 
