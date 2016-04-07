@@ -2,6 +2,7 @@
 const Yshift = 88;
 const Xshift = 101;
 var enemySpeed = 100
+var score = 0;
 
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
@@ -35,15 +36,10 @@ if (this.x >= 495) {
     this.x = -50;
 };
 
-
-    // //handle colliaions
-    // if(this.x === player.x){
-    // this.x = this.defaultx;
-    // player.x = 200;
-    // player.y = 418;
-    // }
+    checkCollisions(this.x, this.y)
 
 };
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function(){
@@ -82,6 +78,18 @@ Player.prototype.update = function(dt) {
         this.x = 400;
     }
 
+    //array of all points that can collide with an enemy
+    // var corners = [];
+
+    // corner1 = this.x;
+    // corner2 = this.y;
+    // corner3 = this.x + Xshift;
+    // corner4 = this.y + Yshift;
+
+
+    // corners.push(corner1, corner2, corner3, corner4);
+     
+    
 
 };
 
@@ -158,6 +166,7 @@ var endReached = function () {
     player.x = player.defaultX;
     player.y = player.defaultY;
     enemySpeed += 20;
+    score++;
 
     /*This is is super inefficent, but functional for now. 
     I need to figure out how to make them reset in a loop somehow
@@ -173,7 +182,23 @@ var endReached = function () {
     enemy3.x = 250;
     enemy3.y = 50;
     
+};
+
+var checkCollisions = function (x, y) {
+  var farX = x + Xshift;
+  var farY = y + Yshift;
+  var playerFarX = player.x + Xshift;
+  var playerFarY = player.y + Yshift;
+
+if (x < player.x + Xshift  && x + Xshift  > player.x &&
+        y < player.y + Yshift && y + Yshift > player.y) {
+    enemySpeed -= 20;
+    endReached();
+    score = 0;
+console.log("They collided");
 }
+
+};
 
 
 $(document).click(function(loc) {
