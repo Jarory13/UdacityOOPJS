@@ -4,6 +4,7 @@ const Xshift = 101;
 var enemySpeed = 100
 var score = 0;
 
+
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -15,7 +16,6 @@ var Enemy = function(x, y) {
 
     this.x = x;
     this.y = y;
- 
     this.sprite = 'images/enemy-bug.png';
 
 
@@ -168,6 +168,8 @@ var endReached = function () {
     player.y = player.defaultY;
     enemySpeed += 20;
     score++;
+     updateScore(score);
+
 
     /*This is is super inefficent, but functional for now. 
     I need to figure out how to make them reset in a loop somehow
@@ -205,13 +207,14 @@ if (x < player.x + xlength     &&
     */
     endReached();
     enemySpeed = 100;
-    score = 0;
+    score = 0
+   updateScore(score);
+
 }
 
 };
 
-
-$(document).click(function(loc) {
-  // your code goes here
-  console.log(loc.pageX, loc.pageY);
-});
+//
+var updateScore = function(newScore) {
+    $('#score').html(newScore);
+}
