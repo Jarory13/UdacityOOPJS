@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-const Yshift = 88;
+const Yshift = 85;
 const Xshift = 101;
 var enemySpeed = 100
 var score = 0;
@@ -136,14 +136,15 @@ figure out how to push dynamically generated named?
 var enemy0 = new Enemy(0, 60);
 var enemy1 = new Enemy(350, 145);
 var enemy2 = new Enemy(100, 230);
-var enemy3 = new Enemy(250, 60);
+var enemy3 = new Enemy(275, 60);
 
 allEnemies.push(enemy0, enemy1, enemy2, enemy3);
 
 //console.log(allEnemies);
 
 
-var player = new Player(200,411);
+var player = new Player(202,311);
+// var player = new Player(202,411);
 
 
 
@@ -185,17 +186,26 @@ var endReached = function () {
 };
 
 var checkCollisions = function (x, y) {
-  var farX = x + Xshift;
-  var farY = y + Yshift;
-  var playerFarX = player.x + Xshift;
-  var playerFarY = player.y + Yshift;
 
-if (x < player.x + Xshift  && x + Xshift  > player.x &&
-        y < player.y + Yshift && y + Yshift > player.y) {
-    enemySpeed -= 20;
+//for some reason x is being assed in as a float, flooring that.    
+x = Math.floor(x);
+
+//used to measure the length of the box that should be around the sprites.
+var xlength = 72;
+var ylength = 70;
+
+//check boxes from all sides. 
+if (x < player.x + xlength     && 
+    x + Xshift  > player.x    &&
+    y < player.y + ylength     && 
+    y + ylength > player.y  ) {
+
+    /* If there is a collision, reset the units, score,
+     and enemy speed
+    */
     endReached();
+    enemySpeed = 100;
     score = 0;
-console.log("They collided");
 }
 
 };
